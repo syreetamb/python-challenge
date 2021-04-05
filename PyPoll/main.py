@@ -6,6 +6,8 @@ os.chdir(dir_path)
 
 pypoll_path = os.path.join('Resources','election_data.csv')
 
+all_votes = []
+candidates = []
 
 with open(pypoll_path, "r", encoding="utf-8") as pypollfile:
 
@@ -14,4 +16,9 @@ with open(pypoll_path, "r", encoding="utf-8") as pypollfile:
     next(pypollreader)
 
     for row in pypollreader:
-        print(row)
+
+        all_votes.append(row[0]) 
+        candidates.append(row[2])
+        
+        total_votes = len(all_votes)
+        print(total_votes)
