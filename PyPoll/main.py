@@ -8,7 +8,7 @@ pypoll_path = os.path.join('Resources','election_data.csv')
 
 all_votes = []
 all_candidates =[]
-candidates = {}
+candidates = []
 votes = 0
 
 with open(pypoll_path, "r", encoding="utf-8") as pypollfile:
@@ -23,6 +23,12 @@ with open(pypoll_path, "r", encoding="utf-8") as pypollfile:
         all_candidates.append(row[2])
         votes = len(all_votes)
         
-        candidates["name"] = all_candidates
+    [candidates.append(x)for x in all_candidates if x not in candidates]   
 
-print(f'{candidates["name"]}')
+    khan_total = all_candidates.count(candidates[0])
+    correy_total = all_candidates.count(candidates[1])
+    li_total = all_candidates.count(candidates[2])
+    otooley_total = all_candidates.count(candidates[3])
+        
+    
+print(otooley_total)
