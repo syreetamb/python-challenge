@@ -31,6 +31,8 @@ with open(pypoll_path, "r", encoding="utf-8") as pypollfile:
     correy_total = all_candidates.count(candidates[1])
     li_total = all_candidates.count(candidates[2])
     otooley_total = all_candidates.count(candidates[3])
+    
+    total = [khan_total, correy_total, li_total, otooley_total]
         
         #percentage
     khan_percent = round(((khan_total/votes) * 100),3)
@@ -38,13 +40,15 @@ with open(pypoll_path, "r", encoding="utf-8") as pypollfile:
     li_percent = round(((li_total/votes)*100),3)
     otooley_percent = round(((otooley_total/votes)*100),3)    
 
+    percent = [khan_percent, correy_percent, li_percent, otooley_percent]
+
     output =f'\nElection Results\n-------------------------\n\
-  Total Votes: {votes}\n\
+  Total Votes: {votes:,}\n\
   -------------------------\n\
-  {candidates[0]}: 63.000% (2218231)\n\
-  {candidates[1]}: 20.000% (704200)\n\
-  {candidates[2]}: 14.000% (492940)\n\
-  {candidates[3]}: 3.000% (105630)\n\
+  {candidates[0]}: {percent[0]}% ({total[0]:,})\n\
+  {candidates[1]}: {percent[1]}% ({total[1]:,})\n\
+  {candidates[2]}: {percent[2]}% ({total[2]:,})\n\
+  {candidates[3]}: {percent[3]}% ({total[3]:,})\n\
   -------------------------\n\
   Winner: Khan\n\
   -------------------------\n'
