@@ -10,6 +10,9 @@ all_votes = []
 all_candidates =[]
 candidates = []
 votes = 0
+winner = ["",0]
+candidates_votes = {}
+candidates2 = []
 
 with open(pypoll_path, "r", encoding="utf-8") as pypollfile:
 
@@ -22,6 +25,16 @@ with open(pypoll_path, "r", encoding="utf-8") as pypollfile:
         all_votes.append(row[0])
         all_candidates.append(row[2])
         votes = len(all_votes)
+
+        name = row[2]
+        if name not in candidates_votes.keys():
+            candidates_votes[name] = 0
+        
+        candidates_votes[name] += 1
+
+        if candidates_votes[name] > winner[1]:
+            winner[0] = name
+            winner[1] = candidates_votes[name]
 
        #candidates names 
     [candidates.append(x)for x in all_candidates if x not in candidates]   
@@ -45,11 +58,13 @@ with open(pypoll_path, "r", encoding="utf-8") as pypollfile:
     output =f'\nElection Results\n-------------------------\n\
   Total Votes: {votes:,}\n\
   -------------------------\n\
-  {candidates[0]}: {percent[0]}% ({total[0]:,})\n\
-  {candidates[1]}: {percent[1]}% ({total[1]:,})\n\
-  {candidates[2]}: {percent[2]}% ({total[2]:,})\n\
-  {candidates[3]}: {percent[3]}% ({total[3]:,})\n\
+  {candidates[0]}: {percent[0]:.3f}% ({total[0]:,})\n\
+  {candidates[1]}: {percent[1]:.3f}% ({total[1]:,})\n\
+  {candidates[2]}: {percent[2]:.3f}% ({total[2]:,})\n\
+  {candidates[3]}: {percent[3]:.3f}% ({total[3]:,})\n\
   -------------------------\n\
-  Winner: Khan\n\
+  Winner: {winner[0]}\n\
   -------------------------\n'
+
+open('analysis/report.txt','w').write(output)
 print(output)
